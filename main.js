@@ -35,19 +35,35 @@ function getHumanChoice() {
 }
     
 function playRound() {
-    const humanChoice = getHumanChoice();
-    const computerChoice = getComputerChoice();
-    console.log(`human's choice = ${humanChoice}`);
-    console.log(`computer's choice = ${computerChoice}`);
-    if (humanChoice === computerChoice) {
-        alert(`Tied! You both chose ${handSign[humanChoice]}`);
-    } else if ((humanChoice - 1) % maxChoices === computerChoice) {
-        alert(`You won! Your choice \"${handSign[humanChoice]}\" beats the computer's choice \"${handSign[computerChoice]}\"`);
-    } else if ((humanChoice + 1) % maxChoices === computerChoice) {
-        alert(`You lost! Your choice \"${handSign[humanChoice]}\" loses to the computer's choice \"${handSign[computerChoice]}\"`);
-    } else {
-        alert("error");
+    
+    let humanScore = 0;
+    let computerScore = 0;
+    alert("This is a five round match of rock paper scissors!");
+    while (humanScore !== 5 && computerScore !== 5) {
+        let humanChoice = getHumanChoice();
+        let computerChoice = getComputerChoice();
+        console.log(`human's choice = ${humanChoice}`);
+        console.log(`computer's choice = ${computerChoice}`);
+        if (humanChoice === computerChoice) {
+            alert(`Tied! You both chose ${handSign[humanChoice]}`);
+        } else if ((((humanChoice - 1) + maxChoices) % maxChoices) % maxChoices === computerChoice) {
+            humanScore++;
+            alert(`You won! Your choice \"${handSign[humanChoice]}\" beats the computer's choice \"${handSign[computerChoice]}\". The current score is: you: ${humanScore}, the computer: ${computerScore}`);
+            
+        } else if ((((humanChoice + 1) + maxChoices) % maxChoices) % maxChoices === computerChoice) {
+            computerScore++;
+            alert(`You lost! Your choice \"${handSign[humanChoice]}\" loses to the computer's choice \"${handSign[computerChoice]}\". The current score is: you: ${humanScore}, the computer: ${computerScore}`);
+            computerScore++;
+        } else {
+            alert("error");
+        }
     }
+    if (humanScore === 5) {
+        alert("You won the five round match!");
+    } else {
+        alert("The computer won the five round match. Better luck next time!");
+    }
+
 }
 playRound();
 
