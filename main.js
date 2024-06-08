@@ -1,7 +1,4 @@
-const rock = 0;
-const paper = 1;
-const scissors = 2;
-const maxChoices = 3;
+const [rock, paper, scissors, maxChoices] = [0, 1, 2, 3];
 const handSign = ["rock", "paper", "scissors"];
 
 function getComputerChoice() {
