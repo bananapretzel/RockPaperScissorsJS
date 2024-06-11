@@ -1,55 +1,70 @@
 const [rock, paper, scissors, maxChoices] = [0, 1, 2, 3];
 const handSign = ["rock", "paper", "scissors"];
-
+let humanScore = 0;
+let computerScore = 0;
+const textResults = document.getElementById("textResults");
+const humanScoreDisplay = document.getElementById("humanScoreDisplay");
+const computerScoreDisplay = document.getElementById("computerScoreDisplay");
 function getComputerChoice() {
     return choice = Math.floor(Math.random() * 3);
 }
 
 //console.log(getComputerChoice());
 
-function getHumanChoice() {
-    let humanInput;
+// function getHumanChoice() {
+//     let humanInput;
 
-    let humanChoice = null;
+//     let humanChoice = null;
 
-    while (true) {
-        humanInput = prompt("Rock paper or scissors?").toLowerCase();
+//     while (true) {
+//         humanInput = prompt("Rock paper or scissors?").toLowerCase();
 
-        if (humanInput === "rock") {
-            humanChoice = rock;
-            break;
-        } else if (humanInput === "paper") {
-            humanChoice = paper;
-            break;
-        } else if (humanInput === "scissors" || humanInput === "scissor") {
-            humanChoice = scissors;
-            break;
-        } else {
-            alert(`${humanInput} is an invalid choice. Please input "rock", "paper" or "scissors".`);
-        }
-    }
-    return humanChoice;
-}
+//         if (humanInput === "rock") {
+//             humanChoice = rock;
+//             break;
+//         } else if (humanInput === "paper") {
+//             humanChoice = paper;
+//             break;
+//         } else if (humanInput === "scissors" || humanInput === "scissor") {
+//             humanChoice = scissors;
+//             break;
+//         } else {
+//             alert(`${humanInput} is an invalid choice. Please input "rock", "paper" or "scissors".`);
+//         }
+//     }
+//     return humanChoice;
+// }
 
 function playRound(playerSelection) {
-    console.log(playerSelection);
+    //console.log(playerSelection);
 
-    let humanChoice = getHumanChoice();
+    //let humanChoice = getHumanChoice();
     let computerChoice = getComputerChoice();
-    console.log(`human's choice = ${humanChoice}`);
-    console.log(`computer's choice = ${computerChoice}`);
-    if (humanChoice === computerChoice) {
-        alert(`Tied! You both chose ${handSign[humanChoice]}`);
-    } else if ((((humanChoice - 1) + maxChoices) % maxChoices) % maxChoices === computerChoice) {
-        humanScore++;
-        alert(`You won! Your choice \"${handSign[humanChoice]}\" beats the computer's choice \"${handSign[computerChoice]}\". The current score is: you: ${humanScore}, the computer: ${computerScore}`);
+    console.log(`human's choice = ${handSign[playerSelection]}`);
+    console.log(`computer's choice = ${handSign[computerChoice]}`);
+    if (playerSelection === computerChoice) {
 
-    } else if ((((humanChoice + 1) + maxChoices) % maxChoices) % maxChoices === computerChoice) {
+        textResults.textContent = `Tied! You both chose ${handSign[playerSelection]}`;
+    } else if ((((playerSelection - 1) + maxChoices) % maxChoices) % maxChoices === computerChoice) {
+        
+        textResults.textContent = `You won! Your choice \"${handSign[playerSelection]}\" beats the computer's choice \"${handSign[computerChoice]}\".`;
+        humanScore++;
+        humanScoreDisplay.textContent = `${humanScore}`;
+
+    } else if ((((playerSelection + 1) + maxChoices) % maxChoices) % maxChoices === computerChoice) {
+
+        textResults.textContent = `You lost! Your choice \"${handSign[playerSelection]}\" loses to the computer's choice \"${handSign[computerChoice]}\".`;
         computerScore++;
-        alert(`You lost! Your choice \"${handSign[humanChoice]}\" loses to the computer's choice \"${handSign[computerChoice]}\". The current score is: you: ${humanScore}, the computer: ${computerScore}`);
-        computerScore++;
+        computerScoreDisplay.textContent = `${computerScore}`;
     } else {
         alert("error");
+    }
+    if (humanScore === 5 || computerScore === 5) {
+        const winner = (humanScore === 5) ? "You" : "The computer";
+        textResults.textContent = `${winner} has won!`;
+        rockBtn.disabled = true;
+        paperBtn.disabled = true;
+        scissorsBtn.disabled = true;
     }
 }
 
@@ -58,14 +73,13 @@ const paperBtn = document.getElementById("paper");
 const scissorsBtn = document.getElementById("scissors");
 
 rockBtn.addEventListener("click", () => {
-    playRound(handSign[0]);
+    playRound(0);
 });
 paperBtn.addEventListener("click",() => {
-    playRound(handSign[1]);
+    playRound(1);
 });
 scissorsBtn.addEventListener("click",() => {
-    playRound(handSign[2]);
+    playRound(2);
 });
     
-playRound();
 

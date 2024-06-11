@@ -12,11 +12,24 @@ body {
     background-color: aqua;
 }
 
+#textResults {
+    text-align: center;
+    font-size: 50px;
+}
+
 #results {
     background-color: pink;
     text-align: center;
     font-size: 100px;
    font-weight: bold;
+}
+
+#humanScoreDisplay {
+    color: green;
+}
+
+#computerScoreDisplay {
+    color: red;
 }
 
 
